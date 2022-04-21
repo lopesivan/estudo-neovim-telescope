@@ -16,13 +16,18 @@ sh new.sh| sh
 
 ## É pog, mas ajuda.
 ```
-$ git status --porcelain| cut -c 1-3 --complement | sort -n | xargs -L1 -I{}  echo "git add {} && git commit -m '{}'"
+$ git status --porcelain|
+cut -c 1-3 --complement |
+sort -n |
+xargs -L1 -I{}  echo "git add {} && git commit -m '{}'"
 ```
 ## Os três pontos :)
 
 Os três programas dessa série são:
 
  - [telescope](https://github.com/nvim-telescope/telescope.nvim)
+ - [plenary](https://github.com/nvim-lua/plenary.nvim)
+ - [neovim](https://github.com/neovim/neovim)
 
 ## Sobre mim
 
