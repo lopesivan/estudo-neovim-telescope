@@ -1,0 +1,8 @@
+Hey man! Just experimenting with your code.. What about adding some line to set the colorscheme permanently? 
+
+function enter(prompt_bufnr)                                                                                                                              
+   local selected =  action_state.get_selected_entry()
+   local cmd = 'colorscheme ' .. selected[1]
+   vim.cmd('!echo "vim.cmd(\'' .. cmd .. '\')" > ~/.config/nvim/lua/colors.lua')
+   actions.close(prompt_bufnr)
+ end
