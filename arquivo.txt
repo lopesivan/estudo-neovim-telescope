@@ -1,0 +1,4 @@
+teste Linha 1
+teste Linha 2
+teste Linha 3
+colorscheme elflord
