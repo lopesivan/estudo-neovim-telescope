@@ -14,3 +14,4 @@ local picker = pickers.new(opts)
 
 picker:find()
 
+--  FIXME: 💩   > Não funciona conforme o previsto
