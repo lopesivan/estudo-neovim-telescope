@@ -1,0 +1,8 @@
+path_display = function (opts, path)
+      local pathLength = string.len(path)
+      local maxLength = 41
+      if pathLength > maxLength then
+        path = '...'..string.sub(path, pathLength - maxLength - 3)
+      end
+      return path
+    end,
