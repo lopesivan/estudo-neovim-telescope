@@ -1,0 +1,8 @@
+* selecionar multiplas linhas:
+marcamos as linhas com TAB, é o mark do telescope
+
+* mandamos a lista para qf_list
+com o comando <m-q> enviamos alista para QuickFix
+
+* ver o buffer de QuickFix
+<leader>bb
