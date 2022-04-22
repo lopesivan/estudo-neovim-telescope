@@ -23,7 +23,6 @@ local function enter(prompt_bufnr)
   -- vim.api.nvim_win_set_buf(win, buf)
   -- vim.api.nvim_buf_set_name(buf, "cheetah.yml")
 
-  print(fname)
 --[[
   if file_exists(fname) then
 	print(fname)

@@ -35,26 +35,31 @@ local function enter(prompt_bufnr)
 
 end
 
--- local home  = vim.env.HOME
+local home  = vim.env.HOME
+local cwd   = '.config/nvim/tmp'
 -- local cwd   = '.config/nvim/w/data/example'
--- local dir   = string.format("%s/%s",home, cwd)
--- local files = scan.scan_dir(dir, { hidden = true, depth = 1 })
+local path  = string.format("%s/%s",home, cwd)
+local files = scan.scan_dir(path, { hidden = true, depth = 1 })
+print(vim.inspect(files))
 
-local files = {
-  "agua", "fogo", "vento", "terra"
-}
+local tbl_files = {}
+for _, v in ipairs(files) do
+  table.insert(tbl_files, v)
+end
+print(vim.inspect(tbl_files))
+
+--[[ for _, v in ipairs(require("plenary.scandir").scan_dir(data_path:absolute(), { search_pattern = "%.json$" })) do
+  table.insert(files, v)
+end ]]
+
 
 local opts = {
   finder = finders.new_table {
-	results = {
-	  { "red", "#ff0000" },
-	  { "green", "#00ff00" },
-	  { "blue", "#0000ff" },
-	},
+	results = tbl_files,
 	entry_maker = function(entry)
 	  return {
 		value = entry,
-		display = "[".. entry[1] .."]",
+		display = "[".. entry .."]",
 		ordinal = entry[1],
 	  }
 	end
