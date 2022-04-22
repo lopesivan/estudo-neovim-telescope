@@ -41,12 +41,20 @@ local cwd   = '.config/nvim/tmp'
 local path  = string.format("%s/%s",home, cwd)
 local files = scan.scan_dir(path, { hidden = true, depth = 1 })
 print(vim.inspect(files))
+local files2 = vim.fn.globpath(path, "*", true, true)
+print(vim.inspect(files2))
 
-local tbl_files = {}
+local acceptable_files = {}
 for _, v in ipairs(files) do
-  table.insert(tbl_files, v)
+  table.insert(acceptable_files, vim.fn.fnamemodify(v, ":t"))
 end
-print(vim.inspect(tbl_files))
+print(vim.inspect(acceptable_files))
+
+-- local tbl_files = {}
+-- for _, v in ipairs(files) do
+--   table.insert(tbl_files, v)
+-- end
+-- print(vim.inspect(tbl_files))
 
 --[[ for _, v in ipairs(require("plenary.scandir").scan_dir(data_path:absolute(), { search_pattern = "%.json$" })) do
   table.insert(files, v)
@@ -55,14 +63,14 @@ end ]]
 
 local opts = {
   finder = finders.new_table {
-	results = tbl_files,
-	entry_maker = function(entry)
+	results = acceptable_files,
+	entry_maker = function(line)
 	  return {
-		value = entry,
-		display = "[".. entry .."]",
-		ordinal = entry[1],
+		ordinal = line,
+		display = line,
+		filename = path.."/" .. line,
 	  }
-	end
+	end,
   },
   sorter = sorters.get_generic_fuzzy_sorter({}),
 
