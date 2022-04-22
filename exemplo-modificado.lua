@@ -15,7 +15,7 @@ local input = {'rg', path}
 
 local opts = {
   finder = finders.new_oneshot_job(input),
-  sorters = sorters.get_generic_fuzzy_sorter({}),
+  sorter = sorters.get_generic_fuzzy_sorter({}),
 }
 
 local colors = pickers.new(dropdown, opts)

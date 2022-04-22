@@ -17,7 +17,7 @@ local opts = {
 	"/home/ivan/.config/nvim/templates/go/models/hello/go.mod",
   },
 
-  sorters = sorters.get_generic_fuzzy_sorter({}),
+  sorter = sorters.get_generic_fuzzy_sorter({}),
 }
 
 local colors = pickers.new(opts)

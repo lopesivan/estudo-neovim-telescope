@@ -7,11 +7,10 @@ local input = {'rg', '--files'}
 
 local opts = {
   finder = finders.new_oneshot_job(input),
-  sorters = sorters.get_generic_fuzzy_sorter({}),
+  sorter = sorters.get_generic_fuzzy_sorter({}),
 }
 
 local picker = pickers.new(dropdown, opts)
 
 picker:find()
 
---  FIXME: 💩   > Não funciona conforme o previsto

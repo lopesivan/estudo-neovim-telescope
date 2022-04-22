@@ -18,7 +18,7 @@ local opts = {
 	"/home/ivan/.config/nvim/templates/go/models/hello/go.mod",
   },
 
-  sorters = sorters.get_generic_fuzzy_sorter({}),
+  sorter = sorters.get_generic_fuzzy_sorter({}),
 
   attach_mappings = function(prompt_bufnr, map)
 	map("i", "<CR>", enter)

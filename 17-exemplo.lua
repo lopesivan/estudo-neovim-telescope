@@ -37,7 +37,7 @@ local color_table = vim.fn.getcompletion('', 'color')
 local opts = {
   finder = finders.new_table (color_table),
 
-  sorters = sorters.get_generic_fuzzy_sorter({}),
+  sorter = sorters.get_generic_fuzzy_sorter({}),
 
   attach_mappings = function(prompt_bufnr, map)
 	map("i", "<CR>", enter)

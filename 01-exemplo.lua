@@ -6,7 +6,7 @@ local sorters = require "telescope.sorters"
 
 local opts = {
   finder = finders.new_table {"pablo", "blue", "morning", "shine"},
-  sorters = sorters.get_generic_fuzzy_sorter({}),
+  sorter = sorters.get_generic_fuzzy_sorter({}),
 }
 
 local colors = pickers.new(opts)
