@@ -2,7 +2,16 @@ local pickers = require "telescope.pickers"
 local finders = require "telescope.finders"
 local sorters = require "telescope.sorters"
 
-local input = {"rg", "--line-number", "--column", "", vim.fn.expand('~/.config/nvim/w/data/example')}
+local dirs = {
+  '~/.config/nvim/after/plugin',
+  '~/.config/nvim/after/ftplugin',
+}
+
+local input = {"rg", "--line-number", "--column", ""}
+
+for _, path in ipairs(dirs) do
+	table.insert(input, vim.fn.expand(path))
+end
 
 local opts = {
   finder = finders.new_oneshot_job(input),
@@ -13,5 +22,3 @@ local picker = pickers.new(opts)
 
 picker:find()
 
---  FIXME: 💩   > funciona conforme o previsto, o bug estava no sorter
---  fix(sorters -> sorter) linha 8

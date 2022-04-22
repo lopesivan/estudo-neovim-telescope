@@ -2,10 +2,10 @@ local pickers = require "telescope.pickers"
 local finders = require "telescope.finders"
 local sorters = require "telescope.sorters"
 
-local input = {"rg", "--line-number", "--column", "", vim.fn.expand('~/.config/nvim/w/data/example')}
+local rg = {"rg", "--line-number", "--column", "", vim.fn.expand('~/.config/nvim/w/data/example')}
 
 local opts = {
-  finder = finders.new_oneshot_job(input),
+  finder = finders.new_oneshot_job(rg),
   sorter = sorters.get_generic_fuzzy_sorter(),
 }
 
