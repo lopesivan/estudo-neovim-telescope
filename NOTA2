@@ -1,0 +1,34 @@
+--- lua
+local function run_tests_via_vimux(opts)
+    local config = get_config_from_file("./testconfig")
+    --- config looks like:
+    --- {
+    ---     { "project-a", "docker-compose...", "projects/project_a" },
+    ---     { "project-b", "docker-compose...", "projects/project_b" },
+    --- }
+    pickers.new(opts, {
+        prompt_title = " tests ",
+        finder = finders.new_table {
+            results = config,
+            entry_maker = function(entry)
+                return {
+                    value = entry,
+                    display = entry[1],
+                    ordinal = entry[1],
+                }
+            end
+        },
+        sorter = conf.generic_sorter(opts),
+        attach_mappings = function(prompt_bufnr, _)
+            actions.select_default:replace(function()
+                actions.close(prompt_bufnr)
+                local selection = action_state.get_selected_entry()
+                vim.cmd("VimuxRunCommand('" .. selection.value[2] .. ' | tee testsfailedall' ..  "')")
+
+                vim.cmd('silent !echo "' .. selection.value[3] .. '" > testlastproject')
+            end)
+            return true
+        end,
+
+    }):find()
+end

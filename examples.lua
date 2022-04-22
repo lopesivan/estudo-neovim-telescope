@@ -59,9 +59,9 @@ local opts = {
   end
 }
 
-local colors = pickers.new(dropdown, opts)
+local picker = pickers.new(dropdown, opts)
 
-colors:find()
+picker:find()
 
 end
 
