@@ -6,3 +6,9 @@ com o comando <m-q> enviamos alista para QuickFix
 
 * ver o buffer de QuickFix
 <leader>bb
+
+<Esc>	Close telescope (in normal mode)
+<Tab>	Toggle selection and move to next selection
+<S-Tab>	Toggle selection and move to prev selection
+<C-q>	Send all items not filtered to quickfixlist (qflist)
+<M-q>	Send all selected items to qflist
