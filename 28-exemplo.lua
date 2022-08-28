@@ -1,29 +1,57 @@
-vim.notify = require("notify")
+local actions = require "telescope.actions"
+local action_state = require "telescope.actions.state"
+local pickers = require "telescope.pickers"
+local finders = require "telescope.finders"
+local sorters = require "telescope.sorters"
+local dropdown = require "telescope.themes".get_dropdown()
 
-local function notify_output(command, opts)
-	local output = ""
-	local notification
-	local notify = function(msg, level)
-		local notify_opts = vim.tbl_extend(
-		"keep",
-		opts or {},
-		{ title = table.concat(command, " "), replace = notification }
-		)
-		notification = vim.notify(msg, level, notify_opts)
-	end
-	local on_data = function(_, data)
-		output = output .. table.concat(data, "\n")
-		notify(output, "info")
-	end
-	vim.fn.jobstart(command, {
-		on_stdout = on_data,
-		on_stderr = on_data,
-		on_exit = function(_, code)
-			if #output == 0 then
-				notify("No output of command, exit code: " .. code, "warn")
-			end
-		end,
-	})
+local function enter(prompt_bufnr)
+  local selected = action_state.get_selected_entry()
+  local cmd  = 'colorscheme '.. selected[1]
+  vim.cmd(cmd)
+
+  local cwd   = vim.fn.stdpath('config')
+  local init = string.format("%s/%s",cwd,"/scratch/telescope/arquivo.txt")
+  local cmd_job = "sed -i '$d' " .. init .." && echo '".. cmd .."' >>" .. init
+  vim.fn.jobstart(cmd_job)
+  actions.close(prompt_bufnr)
 end
 
-notify_output({ "echo", "hello world" })
+local function next_color(prompt_bufnr)
+  actions.move_selection_next(prompt_bufnr)
+  local selected = action_state.get_selected_entry()
+  local cmd  = 'colorscheme '.. selected[1]
+  vim.cmd(cmd)
+end
+
+local function prev_color(prompt_bufnr)
+  actions.move_selection_previous(prompt_bufnr)
+  local selected = action_state.get_selected_entry()
+  local cmd  = 'colorscheme '.. selected[1]
+  vim.cmd(cmd)
+end
+
+-- :h getcompletion
+-- getcompletion({pat}, {type} [, {filtered}])		*getcompletion()*
+local color_table ={
+    "blue",
+    "delek",
+    "adwaita",
+    "desert",
+}
+
+local opts = {
+  finder = finders.new_table (color_table),
+  sorter = sorters.get_generic_fuzzy_sorter({}),
+  attach_mappings = function(prompt_bufnr, map)
+	map("i", "<CR>", enter)
+	-- map("i", "<Down>", next_color)
+	-- map("i", "<Up>", prev_color)
+	return true
+  end
+}
+
+local colors = pickers.new(dropdown, opts)
+
+colors:find()
+

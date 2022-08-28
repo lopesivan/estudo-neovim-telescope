@@ -39,16 +39,16 @@ function M.load()
 
 local opts = {
   finder = finders.new_table {
-	"/home/ivan/.config/nvim/w/data/example/fibo.se",
-	"/home/ivan/.config/nvim/w/data/example/strcat.mingw32",
-	"/home/ivan/.config/nvim/w/data/example/binomial.bc",
-	"/home/ivan/.config/nvim/w/data/example/sieve.delphi",
-	"/home/ivan/.config/nvim/w/data/example/sieve.pike",
-	"/home/ivan/.config/nvim/w/data/example/forster_log.bc",
-	"/home/ivan/.config/nvim/w/data/example/csubloop.sh",
-	"/home/ivan/.config/nvim/w/data/example/hanoi.cpp",
-	"/home/ivan/.config/nvim/w/data/example/sieve.ocamlb",
-	"/home/ivan/.config/nvim/w/data/example/sieve.nice",
+	"/home/ivan/.config/neovim-config/w/data/example/fibo.se",
+	"/home/ivan/.config/neovim-config/w/data/example/strcat.mingw32",
+	"/home/ivan/.config/neovim-config/w/data/example/binomial.bc",
+	"/home/ivan/.config/neovim-config/w/data/example/sieve.delphi",
+	"/home/ivan/.config/neovim-config/w/data/example/sieve.pike",
+	"/home/ivan/.config/neovim-config/w/data/example/forster_log.bc",
+	"/home/ivan/.config/neovim-config/w/data/example/csubloop.sh",
+	"/home/ivan/.config/neovim-config/w/data/example/hanoi.cpp",
+	"/home/ivan/.config/neovim-config/w/data/example/sieve.ocamlb",
+	"/home/ivan/.config/neovim-config/w/data/example/sieve.nice",
   },
 
   sorter = sorters.get_generic_fuzzy_sorter({}),

@@ -11,7 +11,8 @@ local function enter(prompt_bufnr)
   local cmd  = 'colorscheme '.. selected[1]
   vim.cmd(cmd)
 
-  local init = vim.fn.expand("/home/ivan/.config/nvim/scratch/telescope/arquivo.txt")
+  local cwd   = vim.fn.stdpath('config')
+  local init = string.format("%s/%s",cwd,"/scratch/telescope/arquivo.txt")
   local cmd_job = "sed -i '$d' " .. init .." && echo '".. cmd .."' >>" .. init
   vim.fn.jobstart(cmd_job)
   actions.close(prompt_bufnr)

@@ -1,47 +1,41 @@
-vim.notify = require("notify")
+local actions = require "telescope.actions"
+local action_state = require "telescope.actions.state"
+local pickers = require "telescope.pickers"
+local finders = require "telescope.finders"
+local sorters = require "telescope.sorters"
+local dropdown = require "telescope.themes".get_dropdown()
 
--- Utility functions shared between progress reports for LSP and DAP
-
-local client_notifs = {}
-
-local function get_notif_data(client_id, token)
-	if not client_notifs[client_id] then
-		client_notifs[client_id] = {}
-	end
-
-	if not client_notifs[client_id][token] then
-		client_notifs[client_id][token] = {}
-	end
-
-	return client_notifs[client_id][token]
+local function enter(prompt_bufnr)
+  local selected = action_state.get_selected_entry()
+  local cmd  = string.format("lua require('libuv.%s').command_toggle()",selected[1])
+  actions.close(prompt_bufnr)
+  vim.cmd(cmd)
 end
 
+local terminal_program_table ={
+    "bc",
+    "cling",
+    "lua",
+    "maple",
+    "ngspice",
+    "nu",
+    "pythagoras",
+    "python",
+    "ruby",
+}
 
-local spinner_frames = { "⣾", "⣽", "⣻", "⢿", "⡿", "⣟", "⣯", "⣷" }
+local opts = {
+  finder = finders.new_table (terminal_program_table),
+  sorter = sorters.get_generic_fuzzy_sorter({}),
+  attach_mappings = function(prompt_bufnr, map)
+	map("i", "<CR>", enter)
+	-- map("i", "<Down>", next_terminal_program)
+	-- map("i", "<Up>", prev_terminal_program)
+	return true
+  end
+}
 
-local function update_spinner(client_id, token)
-	local notif_data = get_notif_data(client_id, token)
+local terminal_programs = pickers.new(dropdown, opts)
 
-	if notif_data.spinner then
-		local new_spinner = (notif_data.spinner + 1) % #spinner_frames
-		notif_data.spinner = new_spinner
+terminal_programs:find()
 
-		notif_data.notification = vim.notify(nil, nil, {
-			hide_from_history = true,
-			icon = spinner_frames[new_spinner],
-			replace = notif_data.notification,
-		})
-
-		vim.defer_fn(function()
-			update_spinner(client_id, token)
-		end, 100)
-	end
-end
-
-local function format_title(title, client_name)
-	return client_name .. (#title > 0 and ": " .. title or "")
-end
-
-local function format_message(message, percentage)
-	return (percentage and percentage .. "%\t" or "") .. (message or "")
-end

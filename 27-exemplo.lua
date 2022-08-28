@@ -31,8 +31,8 @@ local function enter(prompt_bufnr)
 end
 
 local home  = vim.env.HOME
-local cwd   = '.config/nvim/w/data/example'
-local path  = string.format("%s/%s",home, cwd)
+local cwd   = vim.fn.stdpath('config')
+local path  = string.format("%s/%s",cwd,"/w/data/example")
 local files = scan.scan_dir(path, { hidden = true, depth = 1 })
 -- local files = vim.fn.globpath(path, "*", true, true)
 
