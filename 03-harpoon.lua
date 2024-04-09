@@ -21,14 +21,16 @@ utils.create_file(file_name .. "2", {
 	"qux",
 	"qux",
 })
-list:add()
+-- list:add()
 
--- vim.api.nvim_buf_delete(to_unload, { force = true })
+-- harpoon:list():select(1)
 
---    -- i have to force it to be out of bounds
---    list.items[1].context = out
+vim.api.nvim_buf_delete(to_unload, { force = true })
 
---    harpoon:list():select(1)
+-- i have to force it to be out of bounds
+-- list.items[1].context = out
+
+-- harpoon:list():select(1)
 
 --    eq({
 --        { value = file_name, context = expected}
